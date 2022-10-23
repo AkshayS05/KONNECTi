@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "a social media web app",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "start": "nodemon index.js"
   },
