@@ -1,3 +1,5 @@
 module.exports.home = function (req, res) {
-  return res.end('<h1>Konnecti is up for this controller</h1>');
+  console.log(req.cookies);
+  res.cookie('user_id', 22);
+  return res.render('home', { title: 'Home' });
 };
