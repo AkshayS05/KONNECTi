@@ -5,12 +5,19 @@ module.exports.profile = function (req, res) {
     title: 'Profile',
   });
 };
+const checkIfUserExists = (req, res) => {
+  if (req.isAuthenticated()) {
+    return res.redirect('/users/profile');
+  }
+};
 module.exports.signIn = function (req, res) {
+  checkIfUserExists(req, res);
   res.render('user_sign_in', {
     title: 'KonnectI | Sign in',
   });
 };
 module.exports.signUp = function (req, res) {
+  checkIfUserExists(req, res);
   res.render('user_sign_up', {
     title: 'KonnectI | Sign Up',
   });
@@ -40,5 +47,14 @@ module.exports.create = function (req, res) {
 };
 // user sign in and create session
 module.exports.createSession = function (req, res) {
-  // Todo later
+  return res.redirect('/');
+  // next is to go to routes
+};
+module.exports.destroySession = function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/');
+  });
 };
