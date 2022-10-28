@@ -9,6 +9,17 @@ const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 // in order to maintain the session-->Passing session as we want to store that
 const MongoStore = require('connect-mongo')(session);
+const sassMiddleware = require('node-sass-middleware');
+
+app.use(
+  sassMiddleware({
+    src: './assets/scss',
+    dest: './assets/css',
+    debug: true,
+    outputStyle: 'extended',
+    prefix: '/css',
+  }),
+);
 // local port
 const port = 8000;
 
