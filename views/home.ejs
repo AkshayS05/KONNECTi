@@ -2,7 +2,7 @@
 
 <section id="feed-posts">
   <h4>Posts</h4>
-  <form action="create-post" method="Post" id="new-post-form">
+  <form action="/posts/create-post" method="Post" id="new-post-form">
     <textarea
       name="content"
       cols="30"
@@ -11,4 +11,16 @@
     ></textarea>
     <input type="submit" value="Post" />
   </form>
+  <div id="posts-list-container">
+    <ul>
+      <% for(post of posts){%>
+      <li>
+        <p>
+          <%=post.content%>
+          <br>
+          <%=post.user.name%></li>
+        </p>
+      <%}%>
+    </ul>
+  </div>
 </section>
