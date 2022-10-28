@@ -17,4 +17,6 @@ router.post(
 );
 router.get('/sign-out', usersController.destroySession);
 // router.get('/post', usersController.post);
+router.post('/create-post', usersController.createPost);
+
 module.exports = router;
