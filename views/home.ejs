@@ -39,6 +39,11 @@
             <ul id="post-comments-<%=post._id%>">
             <%for(comments of post.comments){%>
                 <p>
+                  <% if(locals.user && locals.user.id==comments.user.id){%>
+                    <small>
+                      <a href="/comments/destroy/<%=comments.id%>">X</a>
+                    </small>
+                    <%}%>
                   <%=comments.content%>
                   <br>
                   <small>

@@ -23,3 +23,23 @@ module.exports.createComment = function (req, res) {
     }
   });
 };
+module.exports.destroyComment = function (req, res) {
+  // check if the user is authenticated to delete the particular comment
+  Comment.findById(req.params.id, function (err, comment) {
+    // .id means converting the object into the string
+    if (comment.user == req.user.id) {
+      let postId = comment.post;
+      comment.remove();
+      //pulling out the id of the comment which is deleted from the post as well.
+      Post.findByIdAndUpdate(
+        postId,
+        { $pull: { comments: req.params.id } },
+        function (err, post) {
+          return redirect('back');
+        },
+      );
+    } else {
+      return res.redirect('back');
+    }
+  });
+};
