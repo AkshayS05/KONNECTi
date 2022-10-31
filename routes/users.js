@@ -11,6 +11,7 @@ router.get(
 router.get('/sign-in', usersController.signIn);
 router.get('/sign-up', usersController.signUp);
 router.post('/create', usersController.create);
+router.post('/edit/:id', usersController.update);
 // use passport as a middleware to authenticate
 router.post(
   '/create-session',
