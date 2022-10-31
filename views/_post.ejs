@@ -1,16 +1,20 @@
-<li>
-  <p>
-    <% if (locals.user && locals.user.id == post.user.id){ %>
+<link rel="stylesheet" href="/css/post.css" />
+
+<li class="single-post">
+  <div class="main-post">
+    <p class="main-post-content">
+      <% if (locals.user && locals.user.id == post.user.id){ %> <% } %> <%=
+      post.content %>
+      <br />
+      <small class="main-post-username"> <%= post.user.name %> </small>
+    </p>
     <small>
       <a href="/posts/destroy/<%= post.id %>">X</a>
     </small>
-    <% } %> <%= post.content %>
-    <br />
-    <small> <%= post.user.name %> </small>
-  </p>
+  </div>
   <div class="post-comments">
     <% if (locals.user){ %>
-    <form action="/comments/create" method="POST">
+    <form action="/comments/create" method="POST" class="under-post-comment">
       <input
         type="text"
         name="content"
