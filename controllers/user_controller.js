@@ -1,8 +1,13 @@
 const User = require('../models/user');
 
 module.exports.profile = function (req, res) {
-  return res.render('user_profile', {
-    title: 'Profile',
+  // locate the user
+  User.findById(req.params.id, function (err, user) {
+    // cannot name it user as we already have user in local
+    return res.render('user_profile', {
+      title: 'Profile',
+      profile_user: user,
+    });
   });
 };
 const checkIfUserExists = (req, res) => {
