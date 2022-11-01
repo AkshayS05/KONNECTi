@@ -1,6 +1,11 @@
 <html>
   <head>
     <title><%= title %></title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
     <link rel="stylesheet" href="/css/layout.css" />
     <link rel="stylesheet" href="/css/header.css" />
     <link rel="stylesheet" href="/css/footer.css" />
@@ -8,9 +13,21 @@
   <body>
     <%-include('_header')-%>
     <!-- calling flash message -->
-    <%if(flash.success &&flash.success.length>0){%>
-    <h5><%=flash.success%></h5>
-    <%}%>
+
+    <!-- using Noty -->
+    <script>
+
+      <% if(flash.success && flash.success.length>0){%>
+        // setting up noty
+        new Noty({ type:
+      'success', layout: 'topRight',theme:'relax',timeout:1500, text:"<%=flash.success%>" }).show();
+      <%}%>
+      <% if(flash.error && flash.error.length>0){%>
+        // setting up noty
+        new Noty({ type:
+      'error', layout: 'topRight',theme:'relax',timeout:1500, text:"<%=flash.error%>" }).show();
+      <%}%>
+    </script>
     <main id="layout-main"><%-body%></main>
     <%-include('_footer')-%>
   </body>
