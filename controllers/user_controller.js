@@ -62,6 +62,8 @@ module.exports.create = function (req, res) {
 };
 // user sign in and create session
 module.exports.createSession = function (req, res) {
+  req.flash('success', 'Logged in successfully!');
+  // in order to send a flash message to the front end--we will create our custom middleware in config
   return res.redirect('/');
   // next is to go to routes
 };
@@ -70,6 +72,8 @@ module.exports.destroySession = function (req, res, next) {
     if (err) {
       return next(err);
     }
+    req.flash('success', 'You have logged out successfully!');
+    // in order to send a flash message to the front end--we will create our custom middleware in config
     res.redirect('/');
   });
 };

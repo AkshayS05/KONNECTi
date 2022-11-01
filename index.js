@@ -10,7 +10,10 @@ const passportLocal = require('./config/passport-local-strategy');
 // in order to maintain the session-->Passing session as we want to store that
 const MongoStore = require('connect-mongo')(session);
 const sassMiddleware = require('node-sass-middleware');
-
+// to display a flash message
+const flash = require('connect-flash');
+// call flash's meddleware after the session is set up
+const customMware = require('./config/middleware');
 app.use(
   sassMiddleware({
     src: './assets/scss',
@@ -73,6 +76,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 // --next step is to go to user controller
 //use express.router in the main index.js file
+app.use(flash());
+app.use(customMware.setFlash);
 app.use(passport.setAuthenticatedUser);
 app.use('/', require('./routes'));
 
