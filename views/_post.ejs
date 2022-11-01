@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/css/post.css" />
 
-<li class="single-post">
+<li class="single-post" id="post-<%=post._id%>">
   <div class="main-post">
     <p class="main-post-content">
       <% if (locals.user && locals.user.id == post.user.id){ %> <% } %> <%=
@@ -9,7 +9,7 @@
       <small class="main-post-username"> <%= post.user.name %> </small>
     </p>
     <small>
-      <a href="/posts/destroy/<%= post.id %>">X</a>
+      <a class="delete-post-btn" href="/posts/destroy/<%= post.id %>">X</a>
     </small>
   </div>
   <div class="post-comments">
