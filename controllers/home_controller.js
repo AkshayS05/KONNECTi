@@ -4,6 +4,7 @@ module.exports.home = async function (req, res) {
   try {
     // in order to get the name of the one of posted, we will use mongoose populate
     let posts = await Post.find({})
+      .sort('-createdAt')
       .populate('user')
       .populate({
         path: 'comments',
