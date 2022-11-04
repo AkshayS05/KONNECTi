@@ -30,15 +30,32 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+
     // --here fieldname is avatar where we are storing the path
-    cb(null, file.fieldname + '-' + uniqueSuffix);
+    cb(
+      null,
+      file.fieldname + '-' + uniqueSuffix + '.' + file.mimetype.split('/')[1],
+    );
   },
 });
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === 'image/jpg' ||
+    file.mimetype === 'image/jpeg' ||
+    file.mimetype === 'image/png'
+  ) {
+    cb(null, true);
+  } else {
+    cb(new Error('Image uploaded is not of type jpg/jpeg or png'), false);
+  }
+};
 // static functions
-userSchema.statics.uploadedAvatar = multer({ storage: storage }).single(
-  'avatar',
-);
+userSchema.statics.uploadedAvatar = multer({
+  storage: storage,
+  fileFilter: fileFilter,
+}).single('avatar');
 userSchema.statics.avatarPath = AVATAR_PATH;
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;

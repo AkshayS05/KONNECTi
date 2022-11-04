@@ -11,8 +11,8 @@
         data: newCommentForm.serialize(),
         success: function (data) {
           //   calling newCommentDom function
-          let newComment = newCommentDom(data.data.comment);
 
+          let newComment = newCommentDom(data.data.comment);
           $(`#post-comments-${postId}`).prepend(newComment);
           new Noty({
             theme: 'relax',
@@ -47,10 +47,8 @@
   };
   // method to delete a comment
   let deleteComment = function (deleteLink) {
-    console.log(deleteLink);
     $(deleteLink).click(function (e) {
       e.preventDefault();
-      console.log('Prevented');
       $.ajax({
         type: 'get',
         url: $(deleteLink).prop('href'),
@@ -72,12 +70,12 @@
   };
   let convertPostsToAjax = function () {
     $('#posts-list-container>ul>li').each(function () {
-      // console.log(this);
       let self = $(this);
-      let deleteButton = $(' .delete-comment-btn', self);
-      deleteComment(deleteButton);
 
-      //     // get the post's id by splitting the id attribute
+      let deleteLink = $(' .delete-comment-btn', self);
+      deleteComment(deleteLink);
+
+      // get the post's id by splitting the id attribute
       let postId = self.prop('id').split('-')[1];
       createComment(postId);
     });
