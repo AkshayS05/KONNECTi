@@ -11,13 +11,32 @@ module.exports.profile = function (req, res) {
   });
 };
 
-module.exports.update = function (req, res) {
+module.exports.update = async function (req, res) {
   if (req.user.id == req.params.id) {
-    User.findByIdAndUpdate(req.params.id, req.body, function (err, user) {
-      return res.redirect('back');
-    });
+    try {
+      let user = User.findById(req.params.id);
+      // form can not handle multipart data, thus for that we will use multer
+      User.uploadedAvatar(req, res, function (err) {
+        if (err) {
+          console.log('***Multer Error', err);
+        }
+        // store the file alongside the user
+        user.name = req.body.name;
+        user.email = req.user.email;
+        if (req.file) {
+          // this is saving the path of the uploaded file into the avatar field in the user
+          user.avatar = User.avatarPath + '/' + req.file.filename;
+        }
+        user.save();
+        return res.redirect('back');
+      });
+    } catch (err) {
+      req.flash('Error', err);
+      res.redirect('back');
+    }
   } else {
-    res.status(401).send('Unauthorized');
+    req.flash('error', err);
+    return res.status(401).send('Unauthorized');
   }
 };
 const checkIfUserExists = (req, res) => {
