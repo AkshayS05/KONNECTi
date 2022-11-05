@@ -9,7 +9,7 @@
     action="/users/edit/<%=profile_user.id%>"
     enctype="multipart/form-data"
     method="POST"
-    id="new-avatar-<%=profile_user.id%>"
+    id="new-avatar-<%=user.id%>"
   >
     <input
       type="text"
@@ -31,7 +31,7 @@
       placeholder="Profile Picture"
       id="profile-image"
     />
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Submit" id="btnSubmit" />
   </form>
   <%}else{%>
   <!-- otherwise only show the profile info -->

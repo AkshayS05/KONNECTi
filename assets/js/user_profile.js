@@ -1,24 +1,23 @@
 {
   console.log('Called');
   let uploadAvatar = function (postId) {
-    $(`#new-avatar-${postId}`).submit(function (e) {
+    let userPic = $(`#new-avatar-${postId}`).submit(function (e) {
       e.preventDefault();
-      var data = new FormData($(`#new-avatar-${postId}`)[0]);
+      // var formData = new FormData(this);
+      // console.log(formData);
+      // var data = new FormData($(`#new-avatar-${postId}`));
+      // console.log(data[0]);
       $.ajax({
         type: 'post',
         url: `/users/edit/${postId}`,
-        data: data,
-        success: function (res) {
+        // contentType: false,
+        // processData: false,
+        // cache: false,
+        data: userPic.serialize(),
+        success: function (data) {
           // let user = data.data.userData;
-          console.log(res);
+          console.log(data);
           // newAvatarDom(user);
-          new Noty({
-            theme: 'relax',
-            text: 'Avatar published!',
-            type: 'success',
-            layout: 'topRight',
-            timeout: 1500,
-          }).show();
         },
         error: function (err) {
           console.log(err.responseText);
@@ -27,7 +26,6 @@
     });
   };
   const newAvatarDom = function (user) {
-    console.log(user.avatar);
     return $(`<img src="${user.avatar}" alt="${user.name}" width="100" />
     <div id="user-profile">
     <% if(locals.${user.id}==${user.id}){ %>
