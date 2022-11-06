@@ -18,12 +18,20 @@ module.exports.index = async function (req, res) {
 //deleting the whole post
 module.exports.destroy = async function (req, res) {
   try {
-    Post.remove();
-    // Also delete the linked comments to that post
-    await Comment.deleteMany({ post: req.params.id });
-    return res.json(200, {
-      message: 'Posts and associated comments deleted successfully',
-    });
+    let postToBeDeleted = await Post.findById(req.params.id);
+    if (postToBeDeleted.user == req.user.id) {
+      postToBeDeleted.remove();
+
+      // Also delete the linked comments to that post
+      await Comment.deleteMany({ post: req.params.id });
+      return res.json(200, {
+        message: 'Posts and associated comments deleted successfully',
+      });
+    } else {
+      return res.json(401, {
+        message: 'You are not allowed to delete this post',
+      });
+    }
   } catch (err) {
     console.log('******', err);
     return res.json(500, {
