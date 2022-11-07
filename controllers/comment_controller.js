@@ -1,6 +1,8 @@
 const Comment = require('../models/comment');
 const Post = require('../models/post');
-
+const commentsMailer = require('../mailers/comments_mailer');
+const queue = require('../config/kue');
+const commentsEmailWorker = require('../workers/comment_email_worker');
 module.exports.createComment = async function (req, res) {
   // find the post on which user wants to add a comment,--check if that post actually exists in the database
   try {
@@ -15,9 +17,17 @@ module.exports.createComment = async function (req, res) {
       //   whenever we update something, we need to save that update
       post.save();
       //   adding comment to the post
+      comment = await comment.populate('user', 'name email');
+      // commentsMailer.newComment(comment);
+      // as soon as job is created, job id gets stored inside job
+      let job = queue.create('emails', comment).save(function (err) {
+        if (err) {
+          console.log('Error in sending to the queue', err);
+          return;
+        }
+        console.log('Job is enqueued', job.id);
+      });
       if (req.xhr) {
-        comment = await comment.populate('user', 'name');
-
         return res.status(200).json({
           data: {
             comment: comment,
