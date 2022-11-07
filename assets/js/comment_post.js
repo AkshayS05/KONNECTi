@@ -69,7 +69,7 @@
     });
   };
   let convertPostsToAjax = function () {
-    $('#posts-list-container>ul>li').each(function () {
+    $('.post-comments-list>ul>li').each(function () {
       let self = $(this);
 
       let deleteLink = $(' .delete-comment-btn', self);
