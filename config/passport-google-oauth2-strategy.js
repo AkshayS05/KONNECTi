@@ -8,9 +8,9 @@ passport.use(
   new googleStrategy(
     {
       clientID:
-        '395415921785-3u2vp52ee8jl9u2j9r4utbgfujscg5q8.apps.googleusercontent.com',
-      clientSecret: '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',
-      callbackURL: 'http://localhost:8000/users/auth/google/callback',
+        'aclientidtobehere',
+      clientSecret: 'aclientsecrettobehere',
+      callbackURL: 'acallbackurl',
     },
     function (accessToken, refreshToken, profile, done) {
       // find a user
