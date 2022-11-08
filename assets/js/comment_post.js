@@ -13,7 +13,8 @@
           //   calling newCommentDom function
 
           let newComment = newCommentDom(data.data.comment);
-          $(`#post-comments-${postId}`).prepend(newComment);
+          // $(`#post-comments-${postId}`).prepend(newComment);
+          $('.post-comments-list>ul').prepend(newComment);
           new Noty({
             theme: 'relax',
             text: 'Comment published!',
@@ -69,17 +70,16 @@
     });
   };
   let convertPostsToAjax = function () {
-    $('.post-comments-list>ul>li').each(function () {
+    $('.post-comments-list>ul').each(function () {
       let self = $(this);
-
       let deleteLink = $(' .delete-comment-btn', self);
       deleteComment(deleteLink);
 
       // get the post's id by splitting the id attribute
-      let postId = self.prop('id').split('-')[1];
+      let postId = self.prop('id').split('-')[2];
+
       createComment(postId);
     });
   };
   convertPostsToAjax();
-  createComment();
 }

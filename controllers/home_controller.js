@@ -11,7 +11,12 @@ module.exports.home = async function (req, res) {
         populate: {
           path: 'user',
         },
+        // as we need likes for each post and its comments, we will populate posts as well as comments with likes as well
+        // for comments
+
+        // for posts
       });
+
     let users = await User.find({});
     return res.render('home', {
       title: 'KONNECTi | Home',

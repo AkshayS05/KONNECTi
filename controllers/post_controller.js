@@ -1,6 +1,6 @@
 const Comment = require('../models/comment');
 const Post = require('../models/post');
-
+const Like = require('../models/like');
 // controller for post-- get the data from the form, save it into the database and mark the user
 
 module.exports.createPost = async function (req, res) {
@@ -30,7 +30,10 @@ module.exports.destroy = async function (req, res) {
     let postToBeDeleted = await Post.findById(req.params.id);
     // .id means converting the object into the string
     if (postToBeDeleted.user == req.user.id) {
-      postToBeDeleted.remove();
+      // if post is deleted, we need to delete the associated likes for post as well as for its comments
+      // await Like.deleteMany({ likeable: postToBeDeleted, onModel: 'Post' });
+      // await Like.deleteMany({ _id: { $in: postToBeDeleted.comments } });
+      // postToBeDeleted.remove();
       // Also delete the linked comments to that post
       await Comment.deleteMany({ post: req.params.id });
       if (req.xhr) {

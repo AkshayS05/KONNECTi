@@ -3,6 +3,7 @@ const Post = require('../models/post');
 const commentsMailer = require('../mailers/comments_mailer');
 const queue = require('../config/kue');
 const commentsEmailWorker = require('../workers/comment_email_worker');
+const Like = require('../models/post');
 module.exports.createComment = async function (req, res) {
   // find the post on which user wants to add a comment,--check if that post actually exists in the database
   try {
@@ -51,6 +52,8 @@ module.exports.destroyComment = async function (req, res) {
     // .id means converting the object into the string
     if (comment.user == req.user.id) {
       let postId = comment.post;
+      // await Like.deleteMany({ likeable: comment._id, onModel: 'Comment' });
+
       comment.remove();
       //pulling out the id of the comment which is deleted from the post as well.
       await Post.findByIdAndUpdate(postId, {
