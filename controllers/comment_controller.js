@@ -52,8 +52,7 @@ module.exports.destroyComment = async function (req, res) {
     // .id means converting the object into the string
     if (comment.user == req.user.id) {
       let postId = comment.post;
-      // await Like.deleteMany({ likeable: comment._id, onModel: 'Comment' });
-
+      await Like.deleteMany({ likeable: comment._id, onModel: 'Comment' });
       comment.remove();
       //pulling out the id of the comment which is deleted from the post as well.
       await Post.findByIdAndUpdate(postId, {

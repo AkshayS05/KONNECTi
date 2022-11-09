@@ -31,9 +31,9 @@ module.exports.destroy = async function (req, res) {
     // .id means converting the object into the string
     if (postToBeDeleted.user == req.user.id) {
       // if post is deleted, we need to delete the associated likes for post as well as for its comments
-      // await Like.deleteMany({ likeable: postToBeDeleted, onModel: 'Post' });
-      // await Like.deleteMany({ _id: { $in: postToBeDeleted.comments } });
-      // postToBeDeleted.remove();
+      await Like.deleteMany({ likeable: postToBeDeleted, onModel: 'Post' });
+      await Like.deleteMany({ _id: { $in: postToBeDeleted.comments } });
+      postToBeDeleted.remove();
       // Also delete the linked comments to that post
       await Comment.deleteMany({ post: req.params.id });
       if (req.xhr) {

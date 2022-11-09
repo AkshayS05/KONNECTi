@@ -13,6 +13,8 @@
           //   calling newCommentDom function
 
           let newComment = newCommentDom(data.data.comment);
+          new ToggleLike($(' .toggle-like-button', newComment));
+
           // $(`#post-comments-${postId}`).prepend(newComment);
           $('.post-comments-list>ul').prepend(newComment);
           new Noty({
@@ -43,6 +45,14 @@
       ${comment.content}
       <br />
       <small> ${comment.user.name} </small>
+      <br>
+      <small>
+          
+              <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${comment._id}&type=Comment">
+                  0 Likes
+              </a>
+          
+      </small>
     </p>
   </li>`);
   };

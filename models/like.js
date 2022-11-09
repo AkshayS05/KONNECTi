@@ -6,9 +6,9 @@ const likeSchema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
     },
     //   this defines the objectid of the liked object
-    Likeable: {
+    likeable: {
       type: mongoose.Schema.ObjectId,
-      required: true,
+      require: true,
       // in order to declare dynamic reference
       refPath: 'onModel',
     },

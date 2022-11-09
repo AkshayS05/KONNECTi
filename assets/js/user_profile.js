@@ -1,5 +1,4 @@
 {
-  console.log('Called');
   let uploadAvatar = function (postId) {
     let userPic = $(`#new-avatar-${postId}`).submit(function (e) {
       e.preventDefault();
