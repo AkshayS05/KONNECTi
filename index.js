@@ -16,6 +16,15 @@ const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
 // call flash's meddleware after the session is set up
 const customMware = require('./config/middleware');
+
+// set up the chat server to be used with socket.io
+const http = require('http');
+const chatServer = http.createServer(app);
+const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
+chatServer.listen(3000, () => {
+  console.log('Chat server listening on *:3000');
+});
+
 app.use(
   sassMiddleware({
     src: './assets/scss',
