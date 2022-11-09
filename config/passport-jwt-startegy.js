@@ -1,6 +1,7 @@
 const passport = require('passport');
 const JWTStrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
+const env = require('./environment');
 
 // as we need to secure the users, we also need to have user model
 const User = require('../models/user');
@@ -10,7 +11,7 @@ const User = require('../models/user');
 let opts = {
   // header-has key authrorization which has bearer key c
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-  secretOrKey: 'thekonnectisocialApp',
+  secretOrKey: env.jwt_secret_key,
 };
 
 passport.use(

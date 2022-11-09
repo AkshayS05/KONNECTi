@@ -1,4 +1,5 @@
 const express = require('express');
+const env = require('./config/environment');
 const expressLayouts = require('express-ejs-layouts');
 const app = express();
 const db = require('./config/mongoose');
@@ -24,11 +25,11 @@ const chatServer = require('http').Server(app);
 const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
 chatServer.listen(5000);
 console.log('chat server is listening on port 5000');
-
+const path = require('path');
 app.use(
   sassMiddleware({
-    src: './assets/scss',
-    dest: './assets/css',
+    src: path.join(__dirname, env.asset_path, 'scss'),
+    dest: path.join(__dirname, env.asset_path, 'css'),
     debug: true,
     outputStyle: 'extended',
     prefix: '/css',
@@ -43,7 +44,7 @@ app.use(express.urlencoded());
 app.use(cookieParser());
 
 // styles
-app.use(express.static('./assets'));
+app.use(express.static(env.asset_path));
 // makes the /uploads file available to the browser
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
@@ -65,7 +66,7 @@ app.use(
   session({
     name: 'konnecti',
     // To do change the secret before the production
-    secret: 'somethingdogs',
+    secret: env.session_cookie_key,
     // if user is not authrnticated, no need to save
     saveUninitialized: false,
     // as we do not want to save again n again the already saved cookies of the user-->we do not need to modify anything
