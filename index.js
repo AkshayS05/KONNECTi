@@ -1,6 +1,9 @@
 const express = require('express');
+const dotenv = require('dotenv');
+dotenv.config();
 const env = require('./config/environment');
 const expressLayouts = require('express-ejs-layouts');
+const logger = require('morgan');
 const app = express();
 const db = require('./config/mongoose');
 // used for session-cookies
@@ -26,15 +29,17 @@ const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
 chatServer.listen(5000);
 console.log('chat server is listening on port 5000');
 const path = require('path');
-app.use(
-  sassMiddleware({
-    src: path.join(__dirname, env.asset_path, 'scss'),
-    dest: path.join(__dirname, env.asset_path, 'css'),
-    debug: true,
-    outputStyle: 'extended',
-    prefix: '/css',
-  }),
-);
+if (env.name == 'development') {
+  app.use(
+    sassMiddleware({
+      src: path.join(__dirname, env.asset_path, 'scss'),
+      dest: path.join(__dirname, env.asset_path, 'css'),
+      debug: true,
+      outputStyle: 'extended',
+      prefix: '/css',
+    }),
+  );
+}
 // local port
 const port = 8000;
 
@@ -48,6 +53,8 @@ app.use(express.static(env.asset_path));
 // makes the /uploads file available to the browser
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
+// morgan
+app.use(logger(env.morgan.mode, env.morgan.options));
 //express ejs layout
 app.use(expressLayouts);
 

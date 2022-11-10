@@ -49,7 +49,6 @@ $('.toggle-like-button').each(function () {
 });
 
 let newLikeDomPost = function (likesCount, post) {
-  console.log(post);
   return $(`
     <a class="toggle-like-button"data-likes='${likesCount}'href="/likes/toggle/?id=${post._id}&type=Post">
     ${likesCount}Likes</a>

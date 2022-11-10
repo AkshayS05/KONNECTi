@@ -13,7 +13,6 @@
           //   calling newCommentDom function
 
           let newComment = newCommentDom(data.data.comment);
-          new ToggleLike($(' .toggle-like-button', newComment));
 
           // $(`#post-comments-${postId}`).prepend(newComment);
           $('.post-comments-list>ul').prepend(newComment);

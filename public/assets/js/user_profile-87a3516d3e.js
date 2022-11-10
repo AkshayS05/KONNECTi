@@ -1,0 +1,1 @@
+{let e=function(e){let t=$(`#new-avatar-${e}`).submit(function(o){o.preventDefault(),$.ajax({type:"post",url:`/users/edit/${e}`,data:t.serialize(),success:function(e){console.log(e)},error:function(e){console.log(e.responseText)}})})};(function(){$("#user-profile>form").each(function(){let t=$(this).prop("id").split("-")[2];e(t)})})(),e()}

@@ -12,7 +12,7 @@
         data: newPostForm.serialize(),
         success: function (data) {
           let newPost = newPostDom(data.data.post);
-          new ToggleLike($(' .toggle-like-button', newPost));
+          // new ToggleLike($(' .toggle-like-button', newPost));
 
           $('#posts-list-container>ul').prepend(newPost);
           // defines newPost has a class delete-post-btn
