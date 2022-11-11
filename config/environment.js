@@ -22,7 +22,7 @@ let development = {
     port: 587,
     secure: false,
     auth: {
-      user: 'akshay sharma',
+      user: 'sample@gmail.com',
       pass: 'mysecretpass',
     },
   },
