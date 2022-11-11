@@ -751,3 +751,8 @@
 [0mGET /undefined [33m404[0m 56.006 ms - 148[0m
 [0mGET /undefined [33m404[0m 23.909 ms - 148[0m
 [0mGET /undefined [33m404[0m 23.248 ms - 148[0m
+[0mGET / [32m200[0m 353.086 ms - 7835[0m
+[0mGET /undefined [33m404[0m 41.069 ms - 148[0m
+[0mGET /js/toggle_likes.js [33m404[0m 45.103 ms - 157[0m
+[0mGET / [32m200[0m 193.668 ms - 7867[0m
+[0mGET / [32m200[0m 253.963 ms - 7867[0m
