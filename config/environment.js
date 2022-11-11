@@ -61,9 +61,9 @@ let production = {
   },
 };
 if (process.env.KONNECTi_Environment == undefined) {
-  console.log('###########YESSSSSSSSSSSSSS');
 }
-module.exports =
-  eval(process.env.KONNECTi_Environment) == undefined
-    ? development
-    : eval(process.env.KONNECTi_Environment);
+module.exports = development;
+// module.exports =
+//   eval(process.env.KONNECTi_Environment) == undefined
+//     ? development
+//     : eval(process.env.KONNECTi_Environment);
